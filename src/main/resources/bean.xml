@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+						
+ 	<bean id="order" class="com.lxj.www.Order" autowire="byName">
+ 		<!-- 构造方法注入，注入值类型：字面值 -->
+		<constructor-arg name="id" value="100"></constructor-arg>
+		<constructor-arg name="orderNum" value="sp1234"></constructor-arg>
+		<!-- setter方法注入，注入值类型：字面值 -->
+		<property name="amount" value="1234.56"></property>
+		<!-- setter方法注入，注入值类型：其他bean -->
+		<property name="orderItem" ref="orderItem1"></property>
+
+		<property name="myArray">
+			<array>
+				<value>1234</value>
+				<ref bean="orderItem1"/>
+			</array>
+		</property>
+		<property name="myList">
+			<list>
+				<value>1234</value>
+				<ref bean="orderItem1"/>
+			</list>
+		</property>
+		<property name="mySet">
+			<set>
+				<value>1234</value>
+				<ref bean="orderItem1"/>
+			</set>
+		</property>
+		<property name="myMap">
+			<map>
+				<entry key="1" value="1234"></entry>
+				<entry key="2" value-ref="orderItem1"></entry>
+			</map>
+		</property>
+		<property name="myProp">
+			<props>
+				<prop key="aaa">AAA</prop>
+				<prop key="bbb">BBBB</prop>
+			</props>
+		</property>
+	</bean>
+ 
+ 	<bean id="orderItem1" class="com.lxj.www.OrderItem">
+ 		<property name="id" value="10"></property>
+ 		<property name="product" value="电视机"></property>
+ 		<property name="price" value="6000"></property>
+ 		<property name="count" value="4"></property>
+ 	</bean>
+ 	<!-- 继承 -->
+ 	<bean id="orderItem2" parent="orderItem1">
+ 		<property name="price" value="5000"></property>
+ 		<property name="count" value="2"></property>
+ 	</bean>
+ 	<!--  依赖 如：
+ 	<bean id="userDao" class="com.abc.dao.UserDao"></bean>
+ 	<bean id="userService" class="com.abc.service.UserService" depends-on="userDao"></bean>  -->
+ 	
+ 	<bean id="orderDate" class="com.lxj.www.Date" scope="singleton"></bean>
+ 
+</beans>
